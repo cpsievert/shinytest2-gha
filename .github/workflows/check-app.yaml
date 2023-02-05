@@ -36,12 +36,33 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
 
-      - name: Install shinytest2
+      # TODO: Use this workflow (instead of the steps below) once this issue is fixed
+      # https://github.com/rstudio/shinytest2/issues/323
+      #- uses: rstudio/shinytest2/actions/test-app@v1
+      #  with:
+      #    app-dir: "app"
+      #    upload-snapshots: true
+
+      - name: Test app
         shell: Rscript {0}
         run: |
-          install.packages('shinytest2')
-          renv::snapshot()
+          ## --------------------------------------------------------------------
+          options(crayon.enabled = TRUE)
+          shinytest2::test_app('app')
 
-      - uses: rstudio/shinytest2/actions/test-app@v1
+      - name: Show testthat output
+        if: always()
+        run: |
+          ## --------------------------------------------------------------------
+          echo ::group::Show testthat output
+          find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+          echo ::endgroup::
+        shell: bash
+        working-directory: app
+
+      - name: Upload snapshots
+        uses: actions/upload-artifact@main
         with:
-          app-dir: "app"
+          name: ${{ runner.os }}-r${{ steps.st2-r-version.outputs.version }}-testthat-snapshots
+          path: app/tests*/testthat/_snaps
+          if-no-files-found: ignore
