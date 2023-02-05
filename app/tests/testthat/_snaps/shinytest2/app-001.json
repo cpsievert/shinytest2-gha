@@ -1,0 +1,19 @@
+{
+  "input": {
+    "greet": 0,
+    "name": ""
+  },
+  "output": {
+    "greeting": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
