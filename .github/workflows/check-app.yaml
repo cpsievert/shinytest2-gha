@@ -36,6 +36,12 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
 
+      - name: Install shinytest2
+        shell: Rscript {0}
+        run: |
+          install.packages('shinytest2')
+          renv::snapshot()
+
       - uses: rstudio/shinytest2/actions/test-app@v1
         with:
           app-dir: "app"
