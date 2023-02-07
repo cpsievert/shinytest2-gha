@@ -1,6 +1,6 @@
 ![check-app](https://github.com/cpsievert/shinytest2-gha/actions/workflows/check-app.yaml/badge.svg)
 
-# shinytest-gha
+# shinytest2-gha
 
 Playing with Github Actions, `{shinytest2}`, and `{chromote}`/`{webshot2}`. 
 
